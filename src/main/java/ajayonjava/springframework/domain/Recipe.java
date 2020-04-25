@@ -17,6 +17,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+    @Lob //tell to hibernate make space available more than 255 char on DB
     private String direction;
 
     @Lob //for large object. It will make BLOB on DB side.
@@ -118,15 +119,22 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+        notes.setRecipe(this);
     }
 
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public Recipe addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
     }
+
+    /*public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }*/
 
     public Difficulty getDifficulty() {
         return difficulty;
@@ -134,5 +142,13 @@ public class Recipe {
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

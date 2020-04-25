@@ -1,33 +1,26 @@
 package ajayonjava.springframework.controller;
 
-import ajayonjava.springframework.domain.Category;
-import ajayonjava.springframework.domain.UnitOfMeasure;
-import ajayonjava.springframework.repository.CategoryRepository;
-import ajayonjava.springframework.repository.UnitOfMeasureRepository;
+import ajayonjava.springframework.domain.Recipe;
+import ajayonjava.springframework.services.RecipeServiceImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    private RecipeServiceImpl recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeServiceImpl recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"","/","/index","/index.html"})
-    public String getIndexPage(){
-        System.out.println("controller called...");
-        Optional<Category> optionalCategory = categoryRepository.findByDescription("");
-        Optional<UnitOfMeasure> optionalUnitOfMeasure = unitOfMeasureRepository.findByDescription("");
-
-        System.out.println("Category ID: "+optionalCategory.get().getId());
-        System.out.println("Unit Of Measure ID: "+optionalUnitOfMeasure.get().getId());
+    public String getIndexPage(Model model){
+       Set<Recipe> recipeSet = recipeService.getRecipes();
+       model.addAttribute("recipeSet",recipeSet);
         return "index";
     }
 }

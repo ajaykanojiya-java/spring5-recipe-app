@@ -18,6 +18,17 @@ public class Ingredient {
     @OneToOne(fetch = FetchType.EAGER) //unidirectional mapping
     private UnitOfMeasure unitOfMeasure;
 
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
+        this.description = description;
+        this.amount = amount;
+        this.unitOfMeasure = unitOfMeasure;
+        //this.recipe = recipe; //to add a recipe id as a foreign key in Ingredient table.
+        //will be handled in addIngredient() method of Recipe class.
+    }
+
     public Long getId() {
         return id;
     }
