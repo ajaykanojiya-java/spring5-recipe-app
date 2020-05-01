@@ -1,10 +1,12 @@
 package ajayonjava.springframework.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 @Data //generates setter and getter for properties inside the class
 @Entity
+@EqualsAndHashCode(exclude = {"recipe"})
 public class Notes {
 
     @Id
