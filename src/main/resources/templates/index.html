@@ -21,7 +21,7 @@
                     <h1 class="panel-title">My Recipes!</h1>
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipeSet)}">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
@@ -37,7 +37,7 @@
                                 <td th:text="${recipe.id}">12333</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 2</td>
                             </tr>
-                            <tr th:each="recipe : ${recipes}">
+                            <tr th:each="recipe : ${recipeSet}">
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 3</td>
                             </tr>
