@@ -5,6 +5,7 @@ import ajayonjava.springframework.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -23,5 +24,14 @@ public class RecipeServiceImpl implements RecipeService {
         //same logic with method reference.
         //recipeRepository.findAll().forEach(recipeSet:: add);
         return recipeSet;
+    }
+
+    @Override
+    public Recipe findRecipeById(Long id) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+        if(!recipeOptional.isPresent()){
+            throw new RuntimeException("Recipe Not Found");
+        }
+        return recipeOptional.get();
     }
 }
