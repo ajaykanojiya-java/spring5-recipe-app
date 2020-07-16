@@ -1,11 +1,14 @@
 package ajayonjava.springframework.services;
 
+import ajayonjava.springframework.converters.RecipeCommandToRecipe;
+import ajayonjava.springframework.converters.RecipeToRecipeCommand;
 import ajayonjava.springframework.domain.Recipe;
 import ajayonjava.springframework.repository.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -15,17 +18,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-class RecipeServiceImplTest {
+@SpringBootTest
+class RecipeServiceImplT {
 
     RecipeServiceImpl recipeService;
     @Mock
     RecipeRepository recipeRepository;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
 
     @BeforeEach
     void setUp() {
         //initialization for mock. if not provided then 'recipeRepository.findAll()' will throw NPE
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository,recipeToRecipeCommand,recipeCommandToRecipe);
     }
 
     @Test

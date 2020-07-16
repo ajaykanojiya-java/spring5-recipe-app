@@ -20,7 +20,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
-    @Lob //tell to hibernate make space available more than 255 char on DB
+    @Lob //tell hibernate to make space available more than 255 char on DB
     private String direction;
 
     @Lob //for large object. It will make BLOB on DB side.
@@ -46,8 +46,10 @@ public class Recipe {
 
 
     public void setNotes(Notes notes) {
-        this.notes = notes;
-        notes.setRecipe(this);
+        if(notes != null){
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
     }
 
     public Recipe addIngredient(Ingredient ingredient){
